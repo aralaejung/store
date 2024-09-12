@@ -5,6 +5,7 @@ import ProductRating from '@/components/single-product/ProductRating';
 import { fetchSingleProduct } from '@/utils/actions';
 import { formatCurrency } from '@/utils/format';
 import Image from 'next/image';
+import ShareButton from '@/components/single-product/ShareButton';
 
 async function SingleProductPage({ params }: { params: { id: string } }) {
   const product = await fetchSingleProduct(params.id);
@@ -27,10 +28,13 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           />
         </div>
         {/* PRODUCT INFO SECOND COL */}
-        <div className="">
-          <div className="flex-gap-x-8 items-center">
+        <div>
+          <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold">{name}</h1>
-            <FavoriteToggleButton />
+            <div className="flex items-center gap-x-2">
+              <FavoriteToggleButton productId={params.id} />
+              <ShareButton name={product.name} productId={params.id} />
+            </div>
           </div>
           <ProductRating />
           <h4 className="text-xl mt-2">{company}</h4>
